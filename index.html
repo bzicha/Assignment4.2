@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en"> 
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bridget's To Do List</title>
+  </head>
+  <body>
+    <form>
+      <input id="todoInput" type="text" placeholder="To do Item" />
+      <button id="addToListBtn" type="button">Add to List</button>
+    </form>
+
+    <div id="toDo"></div>
+
+    <script>
+      let todoList = [
+        "Do Laundry",
+        "Finish Assignment",
+        "Go to the Gym",
+        "Make Dinner",
+        "Feed the Dog",
+        "Pack Lunch for Tomorrow",
+      ];
+
+      function createList() {
+        ul.innerHTML = "";
+        for (let i = 0; i < todoList.length; i = i + 1) {
+          let li = document.createElement("li");
+          li.innerHTML = todoList[i];
+          let deleteBtn = document.createElement("button");
+          deleteBtn.innerHTML = "&times;";
+          deleteBtn.addEventListener("click", deleteItem);
+          li.appendChild(deleteBtn);
+          deleteBtn.setAttribute("index", i);
+          ul.appendChild(li);
+        }
+      }
+
+      let ul = document.createElement("ul");
+
+      createList();
+
+      document.getElementById("toDo").appendChild(ul);
+
+      function addToList() {
+        let inputValue = document.getElementById("todoInput").value;
+        todoList.push(inputValue);
+        createList();
+      }
+
+      function deleteItem(e) {
+        let itemToRemove = e.target.getAttribute("index");
+        console.log(todoList);
+        console.log(itemToRemove);
+        todoList.splice(itemToRemove, 1);
+        createList();
+      }
+
+      document
+        .getElementById("addToListBtn")
+        .addEventListener("click", addToList);
+    </script>
+  </body>
+</html>
